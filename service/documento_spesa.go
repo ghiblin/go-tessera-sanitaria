@@ -14,8 +14,6 @@ import (
 	"github.com/ghiblin/go-tessera-sanitaria/wsdl"
 )
 
-const url = "https://invioSS730pTest.sanita.finanze.it/DocumentoSpesa730pWeb/DocumentoSpesa730pPort"
-
 type DocumentoSpesa struct {
 	config *util.Config
 	cipher *util.Cipher
@@ -51,6 +49,9 @@ func (s *DocumentoSpesa) Inserimento(invoice *util.Invoice) error {
 	result, err := s.unmarshalResponse(response)
 	if err != nil {
 		return err
+	}
+	if result.Body.Fault != nil {
+		return errors.New(result.Body.Fault.Message)
 	}
 
 	if result.Body.Content.Esito > 0 {
@@ -131,9 +132,9 @@ func (s *DocumentoSpesa) sendRequest(soap string) (string, error) {
 			},
 		},
 	}
-	req, _ := http.NewRequest("POST", url, bytes.NewBufferString(soap))
+	req, _ := http.NewRequest("POST", s.config.Url, bytes.NewBufferString(soap))
 	req.Header.Add("Content-Type", "text/xml")
-	req.SetBasicAuth("MTOMRA66A41G224M", "Salve123")
+	req.SetBasicAuth(s.config.User.Username, s.config.User.Pincode)
 	response, err := client.Do(req)
 	if err != nil {
 		log.Fatalln(err)

@@ -22,10 +22,6 @@ type InserimentoDocumentoSpesaResponse struct {
 		Descrizione string `xml:"messaggio>descrizione"`
 		Tipo        string `xml:"messaggio>tipo"`
 	} `xml:"listaMessaggi"`
-	Fault struct {
-		Code    string `xml:"Fault>faultcode"`
-		Message string `xml:"Fault>faultstring"`
-	}
 }
 
 type InsDocumentoFiscale struct {

@@ -9,6 +9,7 @@ import (
 )
 
 type Config struct {
+	Url  string `yaml:"url"`
 	User struct {
 		Username string `yaml:"username"`
 		PIva     string `yaml:"piva"`

@@ -8,6 +8,12 @@ type Header struct {
 
 type Body[T any] struct {
 	Content T
+	Fault   *Fault `xml:"Fault"`
+}
+
+type Fault struct {
+	Code    string `xml:"faultcode"`
+	Message string `xml:"faultstring"`
 }
 
 type Envelope[T any] struct {

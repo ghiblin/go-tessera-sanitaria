@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/pem"
 	"errors"
+	"log"
 )
 
 const certPEM = `
@@ -51,12 +52,12 @@ func NewCipher() (*Cipher, error) {
 	return &Cipher{key}, nil
 }
 
-func (c *Cipher) Encrypt(text string) (string, error) {
+func (c *Cipher) Encrypt(text string) string {
 	cipherText, err := rsa.EncryptPKCS1v15(rand.Reader, c.key, []byte(text))
 	if err != nil {
-		return "", err
+		log.Printf("Failed to encrypt %s: %s", text, err)
 	}
-	return c.Encode64(cipherText), nil
+	return c.Encode64(cipherText)
 }
 
 func (c *Cipher) Encode64(text []byte) string {

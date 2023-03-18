@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"errors"
@@ -16,7 +16,7 @@ type Config struct {
 	} `yaml:"user"`
 }
 
-func getConfig() (*Config, error) {
+func GetConfig() (*Config, error) {
 	file, err := os.Open("config.yml")
 	if err != nil {
 		log.Printf("Failed to open file: %s\n", err)

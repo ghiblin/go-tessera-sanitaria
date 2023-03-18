@@ -12,6 +12,7 @@ type Config struct {
 	Url  string `yaml:"url"`
 	User struct {
 		Username string `yaml:"username"`
+		Password string `yaml:"password"`
 		PIva     string `yaml:"piva"`
 		Pincode  string `yaml:"pincode"`
 	} `yaml:"user"`

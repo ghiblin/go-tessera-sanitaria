@@ -134,7 +134,7 @@ func (s *DocumentoSpesa) sendRequest(soap string) (string, error) {
 	}
 	req, _ := http.NewRequest("POST", s.config.Url, bytes.NewBufferString(soap))
 	req.Header.Add("Content-Type", "text/xml")
-	req.SetBasicAuth(s.config.User.Username, s.config.User.Pincode)
+	req.SetBasicAuth(s.config.User.Username, s.config.User.Password)
 	response, err := client.Do(req)
 	if err != nil {
 		log.Fatalln(err)

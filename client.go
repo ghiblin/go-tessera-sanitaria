@@ -22,6 +22,10 @@ func main() {
 		err = srv.Inserimento(invoice)
 		if err != nil {
 			log.Printf("Failed to send %s: %s", invoice, err)
+			if err.Error() == "Password scaduta" {
+				log.Printf("Fatal error: password scaudta")
+				break
+			}
 		} else {
 			log.Printf("Invoice %s sent correctly", invoice)
 		}
